@@ -12,3 +12,7 @@ For a pre-populated database, execute the `./demo.sh` command. There will be a a
 * AndrewSmith:password
 * GeorgeBusuioc:password
 * MichaelWhite:password
+
+To run the server as it is, execute the `./exec.sh` command.
+
+The server will then run on port `5000`.
