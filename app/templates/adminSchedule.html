@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+  <div class="page-header">
+      <h1>Scheduled Courses</h1>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4">
+      <a href="/administrator/schedule/Glasgow/add" class="btn btn-primary form-control">New Glasgow Schedule</a>&nbsp;
+    </div>
+    <div class="col-sm-4">
+      <a href="/administrator/schedule/Leeds/add" class="btn btn-primary form-control">New Leeds Schedule</a>&nbsp;
+    </div>
+    <div class="col-sm-4">
+      <a href="/administrator/schedule/London/add" class="btn btn-primary form-control">New London Schedule</a>
+    </div>
+  </div>
+
+  <br>
+  <div class="table-responsive">
+  <table id="table" class="table table-bordered table-hover table-striped">
+    <thead>
+      <tr>
+        <th onclick="sortTable(0)">Course <span class="glyphicon glyphicon-triangle-top"></span><span class="glyphicon glyphicon-triangle-bottom"></span></th>
+        <th onclick="sortTable(1)">Trainer <span class="glyphicon glyphicon-triangle-top"></span><span class="glyphicon glyphicon-triangle-bottom"></span></th>
+        <th onclick="sortTable(2)">Room <span class="glyphicon glyphicon-triangle-top"></span><span class="glyphicon glyphicon-triangle-bottom"></span></th>
+        <th onclick="sortTable(3)">Date <span class="glyphicon glyphicon-triangle-top"></span><span class="glyphicon glyphicon-triangle-bottom"></span></th>
+        <th>Available Seats</th>
+        <th>Waiting List</th>
+        <th class="hidden-xs">Time</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for schedule in schedules %}
+      <tr>
+        <td>{{schedule.course.title}}</td>
+        <td>{{schedule.trainer.name}}</td>
+        <td>{{schedule.room.name}}</td>
+        <td>{{schedule.startDate}}</td>
+        <td>{{schedule.seatsAvailable}}</td>
+        <td>{{schedule.waitingList}}</td>
+        <td class="hidden-xs">{{schedule.startTime}}:00</td>
+        <td>
+          {% if schedule.seatsAvailable == schedule.course.capacity %}
+          <div class="col-sm-4">
+            <a class="btn btn-primary form-control"  href='/courses/{{ schedule.id }}/info'>INFO</a>&nbsp;
+          </div>
+          <div class="col-sm-4">
+            <a class="btn btn-warning form-control"  href='/administrator/schedule/{{ schedule.id }}/edit'>EDIT</a>&nbsp;
+          </div>
+          <div class="col-sm-4">
+            <a class="btn btn-danger form-control" href='/administrator/schedule/{{ schedule.id }}/remove'>REMOVE</a>
+          </div>
+          {% else %}
+          <div class="col-sm-6">
+            <a class="btn btn-primary form-control"  href='/courses/{{ schedule.id }}/info'>INFO</a>&nbsp;
+          </div>
+          <div class="col-sm-6">
+            <a class="btn btn-warning form-control"  href='/administrator/schedule/{{ schedule.id }}/edit'>EDIT</a>&nbsp;
+          </div>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+
+{% endblock %}

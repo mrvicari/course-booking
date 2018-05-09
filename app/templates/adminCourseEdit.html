@@ -1,0 +1,53 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="page-header">
+    <h1>Course edit page</h1>
+</div>
+
+<div class="container">
+  <form method="post" name="editCourse">
+    {{ form.hidden_tag() }}
+    <h3>Title:</h3>
+    {% for error in form.title.errors %}
+      <p>{{ error }}</p>
+    {% endfor %}
+    {{ form.title(class_="form-control") }}
+
+    <h3>Description:</h3>
+    {% for error in form.description.errors %}
+      <p>{{ error }}</p>
+    {% endfor %}
+    {{ form.description(class_="form-control", id="courseDescription") }}
+
+    <h3>Number of students:</h3>
+    {% for error in form.capacity.errors %}
+      <p>{{ error }}</p>
+    {% endfor %}
+    {{ form.capacity(class_="form-control")}}
+
+    <h3>Duration</h3>
+    {% for error in form.duration.errors %}
+      <p>{{ error }}</p>
+    {% endfor %}
+    {{ form.duration(class_="form-control") }}
+
+    <h3>Pre-Requisite Courses:</h3>
+    {% for listOfCourse in courses %}
+      <ul>
+        {% if listOfCourse.title != course.title %}
+          {% if checkedPreRequisiteCourse.count(listOfCourse.title) == 1 %}
+          <li><input type="checkbox" name="preRequisite" value="{{ listOfCourse.title }}" checked><label>{{ listOfCourse.title }}</label></li>
+          {% elif checkedPreRequisiteCourse.count(listOfCourse.title) == 0 %}
+          <li><input type="checkbox" name="preRequisite" value="{{ listOfCourse.title }}"><label>{{ listOfCourse.title }}</label></li>
+          {% endif %}
+        {% endif %}
+      </ul>
+    {% endfor %}
+
+    <br>
+    <input type="submit" class="btn btn-primary" value="Edit">
+  </form>
+  <br>
+  <br>
+</div>
+{% endblock %}

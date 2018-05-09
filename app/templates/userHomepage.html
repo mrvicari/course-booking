@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="col-sm-12">
+    <div id="googleMap" style="height: 750px;width:100%"></div>
+  </div>
+  <div id="floating-panel" class="hidden-xs hidden-sm hidden-md">
+    <h2>Our locations</h2>
+    <ul>
+      <li>London</li>
+      <li>Leeds</li>
+      <li>Glasgow</li>
+    </ul>
+</div>
+</div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPT4kYO6U9KFZpANzqyRVH5npY_1um7_E&callback=myMap"></script>
+{% endblock %}

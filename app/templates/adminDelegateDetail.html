@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+  <div class="page-header">
+      <h1>{{delegate.firstName}} {{delegate.surname}}'s Courses</h1>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <a href="/administrator/delegate/{{delegate.id}}/courses/past" class="btn btn-primary form-control">Past</a>&nbsp;
+    </div>
+    <div class="col-sm-6">
+      <a href="/administrator/delegate/{{delegate.id}}/courses/future" class="btn btn-primary form-control">Future</a>
+    </div>
+  </div>
+
+  {% if time == 'past' %}
+    {% for schedule in pastSchedules %}
+    <div class="course-box">
+      <div class="row">
+        <div class="col-sm-9">
+          <h2>{{ schedule.course.title }}</h2>
+        </div>
+        <div class="col-sm-3" align="right">
+          <a href="/courses/{{ schedule.id }}/info" class="btn btn-warning">View</a>
+        </div>
+      </div>
+      <div class="">
+        <p><strong>Started On:</strong> {{ schedule.startDate }}</p>
+      </div>
+    </div>
+    <br>
+    {% endfor %}
+  {% endif %}
+
+  {% if time == 'future' %}
+    {% for schedule in futureSchedules %}
+    <div class="course-box">
+      <div class="row">
+        <div class="col-sm-9">
+          <h2>{{ schedule.course.title }}</h2>
+        </div>
+        <div class="col-sm-3" align="right">
+          <a href="/courses/{{ schedule.id }}/info" class="btn btn-warning">View</a>
+        </div>
+      </div>
+      <div class="">
+        <p><strong>Starts On:</strong> {{ schedule.startDate }}</p>
+      </div>
+    </div>
+    <br>
+    {% endfor %}
+  {% endif %}
+</div>
+
+<br><br>
+
+{% endblock %}

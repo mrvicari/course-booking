@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>Trainer</h1>
+    </div>
+    <p>
+    <button type="button" class="btn btn-primary btn-md" onClick="location.href='/administrator/trainer/add'">New</button>
+    </p>
+    <br>
+      <table id="table" class="table table-bordered table-hover table-striped">
+          <thead>
+              <tr>
+                  <th onclick="sortTable(0)">Name  <span class="glyphicon glyphicon-triangle-top"></span><span class="glyphicon glyphicon-triangle-bottom"></span></th>
+                  <th>Email</th>
+                  <th class="hidden-xs">Mobile</th>
+                  <th>Action</th>
+              </tr>
+          </thead>
+          {% for trainer in items %}
+          <tbody>
+              <tr>
+                  <td>{{ trainer.name }}</td>
+                  <td>{{ trainer.email }}</td>
+                  <td class="hidden-xs">{{ trainer.mobile }}</td>
+                  <td>
+                    <div class="col-sm-4">
+                      <a class="btn btn-primary form-control"  href='/trainer/{{ trainer.id }}/info'>INFO</a>&nbsp;
+                    </div>
+                    <div class="col-sm-4">
+                      <a class="btn btn-warning form-control"  href='/administrator/trainer/{{ trainer.id }}/edit'>EDIT</a>&nbsp;
+                    </div>
+                    <div class="col-sm-4">
+                      <a class="btn btn-danger form-control" href='/administrator/trainer/{{ trainer.id }}/remove'>REMOVE</a>
+                    </div>
+                  </td>
+              </tr>
+          </tbody>
+          {% endfor %}
+      </table>
+</div>
+
+{% endblock %}

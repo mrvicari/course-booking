@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="page-header">
+      <h1>{{ room.name }}</h1>
+  </div>
+  {% for f in range(item) %}
+    {% if item == 1 %}
+    <div align="center">
+      <div class="col-sm-12">
+        <img src="{{ img[f] }}"  style="width: 50%; height: auto;"><br><br>
+      </div>
+    </div>
+    {% elif item == 2 %}
+      <div class="col-sm-6">
+        <img src="{{ img[f] }}"  style="width: 100%; height: auto;"><br><br>
+      </div>
+    {% else %}
+    <div class="col-sm-12">
+      <img src="{{ img[f] }}"  style="width: 100%; height: auto;"><br><br>
+    </div>
+    {% endif %}
+  {% endfor %}
+</div>
+<hr>
+<div>
+  <p><button type="button" class="btn btn-primary btn-md" onClick="location.href='/room/{{ room.id }}/schedule'">Room Schedule</button></p>
+  <h3>ABOUT</h3>
+  <ul>
+    <li type="square"><p><strong>Capacity: </strong>{{ room.capacity }}</p></li>
+    <li type="square"><p><strong>Facilities: </strong>{{ room.facilities }}</p></li>
+    <li type="square"><p><strong>Type of room: </strong>{{ room.roomType }}</p></li>
+  </ul>
+  <h3>LOCATION</h3>
+  <ul>
+    <li type="square"><p><strong>Address: </strong>{{ room.address }}</p></li>
+    <li type="square"><p><strong>City: </strong>{{ room.city }}</p></li>
+  </ul>
+  <br>
+  <h3 style="display: inline">Accessibility: </h3>
+  <p style="display: inline">{{ room.accessibility }}</p>
+</div>
+
+<br><br>
+{% endblock %}

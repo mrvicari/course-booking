@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="col-sm-9 col-sm-offset-3">
+  <div class="page-header">
+    <h1>{{ current_user.username }}'s Profile</h1>
+  </div>
+</div>
+
+<div class="col-sm-3 profile-side profile-side-block">
+  <ul class="nav nav-pills nav-stacked">
+    <li><h3 class="profile-side-item">Menu</h3></li>
+    <hr>
+    <li><a href="/profile/change/email">Change Email</a></li>
+    <li><a href="/profile/change/password">Change Password</a></li>
+    {% if not current_user.admin %}
+    <li><a href="/profile/change/delete" style="color: red;">Delete Account</a></li>
+    {% endif %}
+  </ul>
+  <br>
+</div>
+
+<div class="col-sm-9">
+  <div align="center">
+    <img src="/static/user/userPicture.png", style="width: 30%; height: auto;">
+  </div>
+  <br><br>
+  <ul>
+    <li>
+      <h3 style="display: inline"> First name: </h3>
+      <p style="display: inline">{{ current_user.firstName }}</p>
+    </li>
+    <br>
+    <li>
+      <h3 style="display: inline"> Surname: </h3>
+      <p style="display: inline">{{ current_user.surname }}</p>
+    </li>
+    <br>
+    <li>
+      <h3 style="display: inline"> Username: </h3>
+      <p style="display: inline">{{ current_user.username }}</p>
+    </li>
+    <br>
+    <li>
+      <h3 style="display: inline"> Email: </h3>
+      <p style="display: inline">{{ current_user.email }}</p>
+    </li>
+  </ul>
+</div>
+
+{% endblock %}

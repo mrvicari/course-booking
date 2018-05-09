@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>FDM Academy::Welcome</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script type="text/javascript" src="/static/map.js"></script>
+  <script type="text/javascript" src="/static/sorting.js"></script>
+</head>
+
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
+
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+        {% if current_user.admin %}
+        <a class="navbar-brand" href="/administrator">FDM Academy</a>
+        {% else %}
+        <a class="navbar-brand" href="/">FDM Academy</a>
+        {% endif %}
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        {% if current_user.admin %}
+        <ul class="nav navbar-nav">
+          <li><a href="/administrator/course">Course</a></li>
+          <li><a href="/administrator/trainer">Trainer</a></li>
+          <li><a href="/administrator/room">Room</a></li>
+          <li><a href="/administrator/schedule">Schedule</a></li>
+          <li><a href="/administrator/delegate">Delegate</a></li>
+        </ul>
+        {% elif g.user.is_authenticated %}
+        <ul class="nav navbar-nav">
+          <li><a href="/courses/Glasgow">Browse</a></li>
+          <li><a href="/my_courses/All/future">My Courses</a></li>
+        </ul>
+        {% endif %}
+        <ul class="nav navbar-nav navbar-right">
+          {% if g.user.is_authenticated %}
+          <li><a href="/profile">@{{ g.user.username }}</a></li>
+          <li><a href="/logout">Logout</a></li>
+          {% else %}
+          <li><a href="/register">Register</a></li>
+          <li><a href="/login">Log in</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="item active">
+    <div class="container text-align">
+        {% block content %}
+        {% endblock %}
+    </div>
+  </div>
+  <div>
+    <footer class="text-center">
+      <br><br>
+        <div class="footer-above">
+            <div class="container">
+                <div class="row">
+                    <div class="footer-col col-md-4">
+                        <h3>Location</h3>
+                        <p>1, No1 Whitehall Riverside,<br> Leeds LS1 4BN</p>
+                    </div>
+                    <div class="footer-col col-md-4">
+                        <h3>Around the Web</h3>
+                        <ul class="list-inline">
+                            <li>
+                                <a href="https://www.facebook.com/pages/Fdm-Group/481797182022124?fref=ts" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a href="https://plus.google.com/+Fdmgroupltd" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
+                            </li>
+                            <li>
+                                <a href="https://twitter.com/FDMGroup" class="btn-social btn-outline"><i class="fa fa-fw fa-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="https://www.linkedin.com/company/fdm-group" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
+                            </li>
+                            <li>
+                                <a href="https://www.youtube.com/user/FDMGroupVideos" class="btn-social btn-outline"><i class="fa fa-fw fa-youtube-square"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer-col col-md-4">
+                        <h3>About FDM Academy</h3>
+                        <p>The FDM Academy will provide you with an essential IT training program, invaluable commercial experience and the opportunity for fast-track career development.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-below">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        Copyright &copy; Team Koala 2017
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+  </div>
+</body>
+
+</html>

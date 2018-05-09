@@ -1,0 +1,377 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="col-sm-9 col-sm-offset-3">
+
+  {% if city=='All' %}
+  <div class="page-header">
+    <h1>All Scheduled Courses</h1>
+  </div>
+  {% endif %}
+
+  {% if city=='Leeds' %}
+  <div class="page-header">
+      <h1>Scheduled Courses in Leeds</h1>
+  </div>
+  {% endif %}
+
+  {% if city=='London' %}
+  <div class="page-header">
+      <h1>Scheduled Courses in London</h1>
+  </div>
+  {% endif %}
+
+  {% if city=='Glasgow' %}
+  <div class="page-header">
+      <h1>Scheduled Courses in Glasgow</h1>
+  </div>
+  {% endif %}
+
+  {% if city=='Waiting' %}
+  <div class="page-header">
+    <h1>Courses on waiting list</h1>
+  </div>
+  {% endif %}
+
+</div>
+
+<div class="container-fluid">
+  <div class="col-sm-3 profile-side profile-side-block">
+    <ul class="nav nav-pills nav-stacked">
+      <hr>
+      {% if city == 'All' %}
+      <li class="active"><a href="/my_courses/All/future">All</a></li>
+      <li><a href="/my_courses/Waiting/future">Waiting List</a></li>
+      <li><a href="/my_courses/Glasgow/future">Glasgow</a></li>
+      <li><a href="/my_courses/Leeds/future">Leeds</a></li>
+      <li><a href="/my_courses/London/future">London</a></li>
+      {% elif city == 'London' %}
+      <li><a href="/my_courses/All/future">All</a></li>
+      <li><a href="/my_courses/Waiting/future">Waiting List</a></li>
+      <li><a href="/my_courses/Glasgow/future">Glasgow</a></li>
+      <li><a href="/my_courses/Leeds/future">Leeds</a></li>
+      <li class="active"><a href="/my_courses/London/future">London</a></li>
+      {% elif city == 'Leeds' %}
+      <li><a href="/my_courses/All/future">All</a></li>
+      <li><a href="/my_courses/Waiting/future">Waiting List</a></li>
+      <li><a href="/my_courses/Glasgow/future">Glasgow</a></li>
+      <li class="active"><a href="/my_courses/Leeds/future">Leeds</a></li>
+      <li><a href="/my_courses/London/future">London</a></li>
+      {% elif city == 'Glasgow' %}
+      <li><a href="/my_courses/All/future">All</a></li>
+      <li><a href="/my_courses/Waiting/future">Waiting List</a></li>
+      <li class="active"><a href="/my_courses/Glasgow/future">Glasgow</a></li>
+      <li><a href="/my_courses/Leeds/future">Leeds</a></li>
+      <li><a href="/my_courses/London/future">London</a></li>
+      {% elif city == 'Waiting' %}
+      <li><a href="/my_courses/All/future">All</a></li>
+      <li class="active"><a href="/my_courses/Waiting/future">Waiting List</a></li>
+      <li><a href="/my_courses/Glasgow/future">Glasgow</a></li>
+      <li><a href="/my_courses/Leeds/future">Leeds</a></li>
+      <li><a href="/my_courses/London/future">London</a></li>
+      {% endif %}
+    </ul>
+    <br>
+  </div>
+
+  <br>
+
+  <div class="col-sm-9">
+    <div class="row">
+      <div class="col-sm-6">
+        <a href="/my_courses/{{city}}/past" class="btn btn-primary form-control">Past</a>&nbsp;
+      </div>
+      <div class="col-sm-6">
+        <a href="/my_courses/{{city}}/future" class="btn btn-primary form-control">Future</a>
+      </div>
+    </div>
+  </div>
+
+  <br>
+
+  {% if city=='All' and  time=='past'%}
+  <div class="col-sm-9">
+    {% for schedule in bookedCoursesPast %}
+    <div class="course-box">
+      <div class="row">
+        <div class="col-sm-9">
+          <h2>{{ schedule.course.title }}</h2>
+        </div>
+        <div class="col-sm-3" align="right">
+          <a href="/courses/{{ schedule.id }}/info" class="btn btn-warning">View</a>&nbsp;
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <p><strong>Start Date:</strong> {{ schedule.startDate }}</p>
+        </div>
+      </div>
+    </div>
+    <br>
+    {% endfor %}
+    {% for schedule in waitingCoursesPast %}
+    <div class="course-box">
+      <div class="row">
+        <div class="col-sm-9">
+          <h2>{{ schedule.course.title }}</h2>
+        </div>
+        <div class="col-sm-3" align="right">
+          <a href="/courses/{{ schedule.id }}/info" class="btn btn-warning">View</a>&nbsp;
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <p><strong>Start Date:</strong> {{ schedule.startDate }}</p>
+        </div>
+        <div class="col-sm-6" align="right">
+          <p><strong>Waiting List:</strong> {{ schedule.waitingList }}</p>
+        </div>
+      </div>
+    </div>
+    <br>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if city=='All' and  time=='future'%}
+  <div class="col-sm-9">
+    {% for schedule in bookedCoursesFuture %}
+    <div class="course-box">
+      <div class="row">
+        <div class="col-sm-9">
+          <h2>{{ schedule.course.title }}</h2>
+        </div>
+        <div class="col-sm-3" align="right">
+          <a href="/courses/{{ schedule.id }}/info" class="btn btn-warning">View</a>&nbsp;
+          <a href="/my_courses/All/{{ schedule.id }}/remove" class="btn btn-danger">Cancel</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <p><strong>Start Date:</strong> {{ schedule.startDate }}</p>
+        </div>
+      </div>
+    </div>
+    <br>
+    {% endfor %}
+    {% for schedule in waitingCoursesFuture %}
+    <div class="course-box">
+      <div class="row">
+        <div class="col-sm-9">
+          <h2>{{ schedule.course.title }}</h2>
+        </div>
+        <div class="col-sm-3" align="right">
+          <a href="/courses/{{ schedule.id }}/info" class="btn btn-warning">View</a>&nbsp;
+          <a href="/my_courses/Waiting/{{ schedule.id }}/remove" class="btn btn-danger">Cancel</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <p><strong>Start Date:</strong> {{ schedule.startDate }}</p>
+        </div>
+        <div class="col-sm-6" align="right">
+          <p><strong>Waiting List:</strong> {{ schedule.waitingList }}</p>
+        </div>
+      </div>
+    </div>
+    <br>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if city=='Leeds' and time=='past' %}
+  <div class="col-sm-9">
+    {% for schedule in leedsSchedulesPast %}
+      <div class="course-box">
+        <div class="row">
+          <div class="col-sm-9">
+            <h2>{{ schedule.course.title }}</h2>
+          </div>
+          <div class="col-sm-3" align="right">
+            <a href="/courses/{{ schedule.id }}/info" class="btn btn-warning">View</a>&nbsp;
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <p><strong>Start Date:</strong> {{ schedule.startDate }}</p>
+          </div>
+        </div>
+      </div>
+      <br>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if city=='Leeds' and time=='future' %}
+  <div class="col-sm-9">
+    {% for schedule in leedsSchedulesFuture %}
+      <div class="course-box">
+        <div class="row">
+          <div class="col-sm-9">
+            <h2>{{ schedule.course.title }}</h2>
+          </div>
+          <div class="col-sm-3" align="right">
+            <a href="/courses/{{ schedule.id }}/info" class="btn btn-warning">View</a>&nbsp;
+            <a href="/my_courses/Leeds/{{ schedule.id }}/remove" class="btn btn-danger">Cancel</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <p><strong>Start Date:</strong> {{ schedule.startDate }}</p>
+          </div>
+        </div>
+      </div>
+      <br>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if city=='London' and time=='past' %}
+  <div class="col-sm-9">
+    {% for schedule in londonSchedulesPast %}
+      <div class="course-box">
+        <div class="row">
+          <div class="col-sm-9">
+            <h2>{{ schedule.course.title }}</h2>
+          </div>
+          <div class="col-sm-3" align="right">
+            <a href="/courses/{{ schedule.id }}/info" class="btn btn-warning">View</a>&nbsp;
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <p><strong>Start Date:</strong> {{ schedule.startDate }}</p>
+          </div>
+        </div>
+      </div>
+      <br>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if city=='London' and time=='future' %}
+  <div class="col-sm-9">
+    {% for schedule in londonSchedulesFuture %}
+      <div class="course-box">
+        <div class="row">
+          <div class="col-sm-9">
+            <h2>{{ schedule.course.title }}</h2>
+          </div>
+          <div class="col-sm-3" align="right">
+            <a href="/courses/{{ schedule.id }}/info" class="btn btn-warning">View</a>&nbsp;
+            <a href="/my_courses/London/{{ schedule.id }}/remove" class="btn btn-danger">Cancel</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <p><strong>Start Date:</strong> {{ schedule.startDate }}</p>
+          </div>
+        </div>
+      </div>
+      <br>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if city=='Glasgow' and time=='past'%}
+  <div class="col-sm-9">
+    {% for schedule in glasgowSchedulesPast %}
+      <div class="course-box">
+        <div class="row">
+          <div class="col-sm-9">
+            <h2>{{ schedule.course.title }}</h2>
+          </div>
+          <div class="col-sm-3" align="right">
+            <a href="/courses/{{ schedule.id }}/info" class="btn btn-warning">View</a>&nbsp;
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <p><strong>Start Date:</strong> {{ schedule.startDate }}</p>
+          </div>
+        </div>
+      </div>
+      <br>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if city=='Glasgow' and time=='future'%}
+  <div class="col-sm-9">
+    {% for schedule in glasgowSchedulesFuture %}
+      <div class="course-box">
+        <div class="row">
+          <div class="col-sm-9">
+            <h2>{{ schedule.course.title }}</h2>
+          </div>
+          <div class="col-sm-3" align="right">
+            <a href="/courses/{{ schedule.id }}/info" class="btn btn-warning">View</a>&nbsp;
+            <a href="/my_courses/Glasgow/{{ schedule.id }}/remove" class="btn btn-danger">Cancel</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <p><strong>Start Date:</strong> {{ schedule.startDate }}</p>
+          </div>
+        </div>
+      </div>
+      <br>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if city=='Waiting' and time=='past' %}
+  <div class="col-sm-9">
+    {% for schedule in waitingCoursesPast %}
+    <div class="course-box">
+      <div class="row">
+        <div class="col-sm-9">
+          <h2>{{ schedule.course.title }}</h2>
+        </div>
+        <div class="col-sm-3" align="right">
+          <a href="/courses/{{ schedule.id }}/info" class="btn btn-warning">View</a>&nbsp;
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <p><strong>Start Date:</strong> {{ schedule.startDate }}</p>
+        </div>
+        <div class="col-sm-6" align="right">
+          <p><strong>Waiting List:</strong> {{ schedule.waitingList }}</p>
+        </div>
+      </div>
+    </div>
+    <br>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if city=='Waiting' and time=='future' %}
+  <div class="col-sm-9">
+    {% for schedule in waitingCoursesFuture %}
+    <div class="course-box">
+      <div class="row">
+        <div class="col-sm-9">
+          <h2>{{ schedule.course.title }}</h2>
+        </div>
+        <div class="col-sm-3" align="right">
+          <a href="/courses/{{ schedule.id }}/info" class="btn btn-warning">View</a>&nbsp;
+          <a href="/my_courses/Waiting/{{ schedule.id }}/remove" class="btn btn-danger">Cancel</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <p><strong>Start Date:</strong> {{ schedule.startDate }}</p>
+        </div>
+        <div class="col-sm-6" align="right">
+          <p><strong>Waiting List:</strong> {{ schedule.waitingList }}</p>
+        </div>
+      </div>
+    </div>
+    <br>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %}

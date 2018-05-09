@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-header">
+  <h1>Log In</h1>
+</div>
+
+{% with messages = get_flashed_messages() %}
+ {% if messages %}
+   {% for message in messages %}
+     <p> {{ message }} </p>
+   {% endfor %}
+{% endif %}
+{% endwith %}
+
+<div class="container">
+  <form method="post" name="login">
+    {{ form.hidden_tag() }}
+    <h3>Username or Email</h3>
+    {% for error in form.usernameOrEmail.errors %}
+      <p>{{ error }}</p>
+    {% endfor %}
+    <p>{{ form.usernameOrEmail(class_="form-control") }}</p>
+    <h3>Password</h3>
+    {% for error in form.password.errors %}
+      <p>{{ error }}</p>
+    {% endfor %}
+    <p>{{ form.password(class_="form-control") }}</p>
+
+    <br>
+
+    <input type="submit" class="btn btn-primary" value="Log In">
+  </form>
+</div>
+
+<br><br><br><br><br><br>
+
+{% endblock %}

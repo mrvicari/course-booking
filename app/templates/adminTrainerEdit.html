@@ -1,0 +1,40 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="page-header">
+    <h1>Trainer edit page</h1>
+</div>
+
+<div class="container">
+  <form method="post" name="editTrainer">
+    {{ form.hidden_tag() }}
+    <h3>Name:</h3>
+    {% for error in form.name.errors %}
+      <p>{{ error }}</p>
+    {% endfor %}
+    {{ form.name(class_="form-control") }}
+
+    <h3>Address:</h3>
+    {% for error in form.address.errors %}
+      <p>{{ error }}</p>
+    {% endfor %}
+    {{ form.address(class_="form-control") }}
+
+    <h3>Email:</h3>
+    {% for error in form.email.errors %}
+      <p>{{ error }}</p>
+    {% endfor %}
+    {{ form.email(class_="form-control")}}
+
+    <h3>Mobile number:</h3>
+    {% for error in form.mobile.errors %}
+      <p>{{ error }}</p>
+    {% endfor %}
+    {{ form.mobile(class_="form-control")}}
+    <br>
+
+    <input type="submit" class="btn btn-primary" value="Edit">
+  </form>
+  <br>
+  <br>
+</div>
+{% endblock %}

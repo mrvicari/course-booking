@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="page-header">
+      <h1>{{ course.title }}</h1>
+  </div>
+  <h3>Capacity:</h3>
+  <p>{{ course.capacity }}</p>
+  <h3>Description:</h3>
+  <p>{{ course.description }}</p>
+  <h3>Duration:</h3>
+  <p>{{ course.duration }}</p>
+  <h3>Pre-Requisite Courses:</h3>
+  <p>{{ course.preRequisiteCourses }}</p>
+</div>
+<br><br>
+{% endblock %}

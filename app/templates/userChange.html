@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if cmd=='email' %}
+<div class="page-header">
+    <h1>Change Email</h1>
+</div>
+
+{% with messages = get_flashed_messages() %}
+ {% if messages %}
+   {% for message in messages %}
+     <p> {{ message }} </p>
+   {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<div class="container">
+  <form method="post" name="register">
+    {{ form.hidden_tag() }}
+
+    <h3>New Email</h3>
+    {% for error in form.newEmail.errors %}
+      <p>{{ error }}</p>
+    {% endfor %}
+    {{ form.newEmail(class_="form-control") }}
+    <h3>Password</h3>
+    {% for error in form.password.errors %}
+      <p>{{ error }}</p>
+    {% endfor %}
+    {{ form.password(class_="form-control") }}
+
+    <br>
+
+    <input type="submit" class="btn btn-primary" value="Change Email">
+  </form>
+</div>
+{% endif %}
+
+{% if cmd=='password' %}
+<div class="page-header">
+    <h1>Change Password</h1>
+</div>
+
+{% with messages = get_flashed_messages() %}
+ {% if messages %}
+   {% for message in messages %}
+     <p> {{ message }} </p>
+   {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<div class="container">
+  <form method="post" name="register">
+    {{ form.hidden_tag() }}
+
+    <h3>Old Password</h3>
+    {% for error in form.oldPassword.errors %}
+      <p>{{ error }}</p>
+    {% endfor %}
+    {{ form.oldPassword(class_="form-control") }}
+    <br>
+    <h3>New Password</h3>
+    {% for error in form.newPassword.errors %}
+      <p>{{ error }}</p>
+    {% endfor %}
+    {{ form.newPassword(class_="form-control") }}
+    <h3>Re-Enter New Password</h3>
+    {% for error in form.repeatNewPassword.errors %}
+      <p>{{ error }}</p>
+    {% endfor %}
+    {{ form.repeatNewPassword(class_="form-control") }}
+
+    <br>
+
+    <input type="submit" class="btn btn-primary" value="Change Password">
+  </form>
+</div>
+{% endif %}
+
+{% if cmd=='delete' %}
+
+<div class="page-header">
+    <h1>Delete Account</h1>
+</div>
+
+{% with messages = get_flashed_messages() %}
+ {% if messages %}
+   {% for message in messages %}
+     <p> {{ message }} </p>
+   {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<div class="container">
+  <form method="post" name="register">
+    {{ form.hidden_tag() }}
+
+    <h3>Password</h3>
+    {% for error in form.password.errors %}
+      <p>{{ error }}</p>
+    {% endfor %}
+    {{ form.password(class_="form-control") }}
+
+    <br><br><br><br>
+
+    <input type="submit" class="btn btn-danger form-control" value="Delete Account">
+  </form>
+</div>
+{% endif %}
+
+{% endblock %}

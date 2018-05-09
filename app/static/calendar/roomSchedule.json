@@ -1,0 +1,20 @@
+[
+    {
+        "url": "/courses/1/info",
+        "start": "2017-05-06",
+        "title": "08:00 Numerical Computation",
+        "end": "2017-05-11"
+    },
+    {
+        "url": "/courses/3/info",
+        "start": "2017-05-15",
+        "title": "08:00 Software Engineering",
+        "end": "2017-05-20"
+    },
+    {
+        "url": "/courses/5/info",
+        "start": "2017-04-21",
+        "title": "08:00 Artificial Intellingence",
+        "end": "2017-04-26"
+    }
+]

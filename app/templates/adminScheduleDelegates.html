@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="col-sm-9 col-sm-offset-3">
+  <div class="page-header">
+    <h1>{{ schedule.course.title }}</h1>
+  </div>
+</div>
+
+<div class="col-sm-3 profile-side profile-side-block">
+  <ul class="nav nav-pills nav-stacked">
+    <li><h3 class="profile-side-item">Delegates</h3></li>
+    <hr>
+    {% if delegatesToList == 'booked' %}
+        <li class="active"><a href="/administrator/schedule/{{schedule.id}}/info/booked">Enrolled Delegates</a></li>
+        {% if schedule.waitingList > 0 %}
+            <li><a href="/administrator/schedule/{{schedule.id}}/info/waiting">Waiting List</a></a></li>
+        {% endif %}
+    {% elif delegatesToList == 'waiting' %}
+        <li><a href="/administrator/schedule/{{schedule.id}}/info/booked">Enrolled Delegates</a></li>
+        {% if schedule.waitingList > 0 %}
+            <li class="active"><a href="/administrator/schedule/{{schedule.id}}/info/waiting">Waiting List</a></a></li>
+        {% endif %}
+    {% endif %}
+  </ul>
+  <br>
+</div>
+
+<br>
+
+<div class="col-sm-9">
+    <div class="row">
+        <div class="col-sm-6" align="center">
+            <p><strong>Total Places:</strong> {{schedule.course.capacity}}</p>
+        </div>
+        <div class="col-sm-6" align="center">
+            <p><strong>Available Places:</strong> {{schedule.seatsAvailable}}</p>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="table-responsive">
+        <table id="table" class="table table table-bordered table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>First Name</th>
+                    <th>Surname</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if delegatesToList == 'booked' %}
+                    {% for user in schedule.users %}
+                        <tr>
+                            <td>{{loop.index}}</td>
+                            <td>{{user.firstName}}</td>
+                            <td>{{user.surname}}</td>
+                            <td>{{user.email}}</td>
+                        </tr>
+                    {% endfor %}
+                {% elif delegatesToList == 'waiting' %}
+                    {% for user in schedule.usersWaiting %}
+                        <tr>
+                            <td>{{loop.index}}</td>
+                            <td>{{user.firstName}}</td>
+                            <td>{{user.surname}}</td>
+                            <td>{{user.email}}</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="col-sm-12">
+    <br><br>
+</div>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="line-image">
+    <span style="background-image: url(/static/trainer/trainer.jpg);"></span>
+  </div>
+  <h1 class="name-header">
+    <center>{{ trainer.name }}</center>
+  </h1>
+  <br>
+  <div align="center">
+    <div class="info-box" align="left">
+      <h3 style="display: inline">Email: </h3>
+      <p style="display: inline"> {{ trainer.email }}</p>
+      <br>
+      <br>
+      <h3 style="display: inline">Mobile: </h3>
+      <p style="display: inline"> {{ trainer.mobile }}</p>
+      <br>
+      <br>
+      <h3 style="display: inline">Address: </h3>
+      <p style="display: inline"> {{ trainer.address }}</p>
+      <br>
+    </div>
+  </div>
+</div>
+
+<br><br>
+{% endblock %}

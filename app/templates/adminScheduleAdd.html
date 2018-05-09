@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-header">
+  <h1>{{ pageHeader }}</h1>
+</div>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <p> {{ message }} </p>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<div class="container">
+  <form method="post" name="newSchedule">
+    {{ form.hidden_tag() }}
+    <h3>Course</h3>
+    {% for error in form.course.errors %}
+      <p>{{ error }}</p>
+    {% endfor %}
+    {{ form.course(class_="form-control") }}
+    <h3>Trainer</h3>
+    {% for error in form.trainer.errors %}
+      <p>{{ error }}</p>
+    {% endfor %}
+    {{ form.trainer(class_="form-control") }}
+    <h3>Room</h3>
+    {% for error in form.room.errors %}
+      <p>{{ error }}</p>
+    {% endfor %}
+    {{ form.room(class_="form-control") }}
+    <div class="row">
+      <div class="col-sm-6">
+        <h3>Start Date</h3>
+        {% for error in form.startDate.errors %}
+          <p>{{ error }}</p>
+        {% endfor %}
+        {{ form.startDate(class_="form-control") }}
+      </div>
+      <div class="col-sm-6">
+        <h3>Start Time</h3>
+        {% for error in form.startTime.errors %}
+          <p>{{ error }}</p>
+        {% endfor %}
+        {{ form.startTime(class_="form-control") }}
+      </div>
+    </div>
+
+    <br>
+
+    <input type="submit" class="btn btn-primary" value="Add">
+  </form>
+</div>
+
+<br><br>
+
+{% endblock %}

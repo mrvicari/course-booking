@@ -1,0 +1,84 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="page-header">
+    <h1>Add a new room</h1>
+</div>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <p> {{ message }} </p>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<div class="container">
+  <div class="col-sm-7">
+    <form method="POST" name="newRoom" enctype=multipart/form-data>
+      {{ form.csrf_token }}
+      {{ form.hidden_tag() }}
+      <h3>Room Image</h3>
+      <input type="file" multiple="" name="file[]"/><br />
+
+      <h3>Name:</h3>
+      {% for error in form.name.errors %}
+        <p>{{ error }}</p>
+      {% endfor %}
+      {{ form.name(class_="form-control") }}
+
+      <h3>City:</h3>
+      {% for error in form.city.errors %}
+        <p>{{ error }}</p>
+      {% endfor %}
+      {{ form.city(class_="form-control") }}
+
+      <h3>Address:</h3>
+      {% for error in form.address.errors %}
+        <p>{{ error }}</p>
+      {% endfor %}
+      {{ form.address(class_="form-control") }}
+
+      <h3>Type:</h3>
+      {% for error in form.roomType.errors %}
+        <p>{{ error }}</p>
+      {% endfor %}
+      {{ form.roomType(class_="form-control") }}
+
+      <h3>Capacity:</h3>
+      {% for error in form.capacity.errors %}
+        <p>{{ error }}</p>
+      {% endfor %}
+      {{ form.capacity(class_="form-control") }}
+
+      <h3>Facilities:</h3>
+      {% for item in facilities %}
+        <ul>
+          <li><input type="checkbox" name="facilities" value="{{ item }}"><label>{{ item }}</label></li>
+        </ul>
+      {% endfor %}
+
+      <h3>Accessibility:</h3>
+      {% for error in form.accessibility.errors %}
+        <p>{{ error }}</p>
+      {% endfor %}
+      {{ form.accessibility(class_="form-control") }}
+
+      <br>
+
+      <input type="submit" class="btn btn-primary" value="Add">
+    </form>
+  </div>
+  <div class="col-sm-5">
+
+      <h3>Current Rooms</h3>
+      <br>
+      {% for room in rooms %}
+        <ul>
+          <li><h5>{{ room.name }} | {{ room.city }}</h5></li>
+        </ul>
+      {% endfor %}
+  </div>
+</div>
+
+
+<br><br> {% endblock %}

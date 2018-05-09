@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div class="col-sm-9 col-sm-offset-3">
+  <div class="page-header">
+    <h1>{{ schedule.course.title }}</h1>
+  </div>
+</div>
+
+<div class="col-sm-3">
+
+  <h4>Information</h4>
+
+  <br />
+
+  <table class="table table-bordered table-hover table-striped">
+     <tr>
+       <th>Start Date: <br /> {{ schedule.startDate }}</th>
+     </tr>
+     <tr>
+       <th>Start Time: <br /> {{ schedule.startTime }}:00</th>
+     </tr>
+     <tr>
+       <th>Duration: <br /> {{ schedule.course.duration }} days</th>
+     </tr>
+     <tr>
+       <th>City: <br /> {{ schedule.room.city }} </th>
+     </tr>
+     <tr>
+       <th>Class Size: <br /> {{  schedule.course.capacity }}</th>
+     </tr>
+     <tr>
+       <th>Trainer: <br /> <a href='/trainer/{{ schedule.trainer.id }}/info'>{{ schedule.trainer.name }}</a></th>
+     </tr>
+     <tr>
+       <th>Room: <br /> <a href='/room/{{ schedule.room.id }}/info'>{{ schedule.room.name }}</a></th>
+     </tr>
+  </table>
+</div>
+
+<div class="col-sm-9">
+  {% if schedule.seatsAvailable > 0 %}
+    <p align='right'><strong>Available Seats:</strong> {{ schedule.seatsAvailable }}</p>
+  {% else %}
+    <p align='right'><strong>Waiting List:</strong> {{ schedule.waitingList }}</p>
+  {% endif %}
+  {% if current_user.admin %}
+    <div align="right">
+      <a class="btn btn-primary" href="/administrator/schedule/{{schedule.id}}/info/booked">View Delegates</a>
+    </div>
+  {% endif %}
+  {% if schedule.course.preRequisiteCourses != '' %}
+  <div>
+    <h3>Prerequisite Courses</h3>
+    <p>{{schedule.course.preRequisiteCourses}}</p>
+  </div>
+  {% endif %}
+  <div>
+    <h3>Course Description</h3>
+    <br>
+    <p align='justify'>{{ schedule.course.description }}</p>
+  </div>
+</div>
+
+
+{% endblock %}
