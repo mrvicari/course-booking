@@ -1,3 +1,3 @@
-virtualenv flask
-source flask/bin/activate
+virtualenv venv
+source venv/bin/activate
 pip install -r requirements.txt

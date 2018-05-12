@@ -1,2 +1,2 @@
-source flask/bin/activate
+source venv/bin/activate
 python run.py
